@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Converter from "../Converter";
 
 const Key = (props) => {
 
@@ -90,24 +91,17 @@ const Key = (props) => {
         'z': 'ผ'
     }
 
+    // Map key value
     const setKeyDisplay = (character) => {
         console.log("setting display for: " + character);
-        if(keyLanguage === 'russian') {
-            return russianDict[character]
-        } else if(keyLanguage === 'georgian') {
-            return georgianDict[character]
-        } else if(keyLanguage === 'thai') {
-            return thaiDict[character]
-        } else {
-            return character;
-        }
+
+        return Converter.convert(character, keyLanguage);
+        
     }
 
     const keyVal = setKeyDisplay(props.characterVal);
 
     
-
-
     return(
         <button 
             key={props.characterVal} 

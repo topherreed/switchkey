@@ -8,7 +8,7 @@ body {
     border: 5px solid slateblue;
     border-radius: 5px;;
     color: slateblue;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Kanit', sans-serif;
     padding: 8px 17px;
     font-size: 3rem;
 }
@@ -24,7 +24,7 @@ body {
     display: inline-block;
     text-align: left;
     margin-top: 30px;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Kanit', sans-serif;
 }
 
 #row2 {
