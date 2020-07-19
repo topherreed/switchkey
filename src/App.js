@@ -28,25 +28,34 @@ function App() {
     if(selectedLanguage !== 'english') {
 
       // Determine if key was pressed in conjunction with 'Shift'
+      
       if(e.shiftKey) {
         var newKey = Converter.convert(e.key, selectedLanguage, true)
       } else {
         newKey = Converter.convert(e.key, selectedLanguage, false)
       }
 
-    }
-    
 
-    // Insert newKey into textarea after it has been converted
-    if(newKey) {
+
+
+      // Insert newKey into textarea after it has been converted, prevent nonexistent keys from being typed
+      if(newKey) {
 
       const {selectionStart, selectionEnd, value} = e.target;
-      const newText = value.slice(0, selectionStart) + newKey + value.slice(selectionEnd);
+      const newText = value.slice(0, selectionStart) + (newKey || "") + value.slice(selectionEnd);
       e.target.value = newText;
       e.target.selectionStart = e.target.selectionEnd = selectionStart + 1;
       e.preventDefault();
 
+    } else {
+      console.log("Here I am once again, TORN INTO PIECES")
+      e.preventDefault();
     }
+
+    }
+    
+
+    
   }
 
   const handleKeyUp = (e) => {
