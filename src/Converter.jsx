@@ -28,7 +28,36 @@ const russianDict= {
     'x': 'ч',
     'y': 'н',
     'z': 'я'
-  }
+}
+const russianDictShifted= {
+  'A': 'Ф',
+  'B': 'И',
+  'C': 'С',
+  'D': 'В',
+  'E': 'У',
+  'F': 'А',
+  'G': 'П',
+  'H': 'Р',
+  'I': 'Ш',
+  'J': 'О',
+  'K': 'Л',
+  'L': 'Д',
+  'M': 'Ь',
+  'N': 'Т',
+  'O': 'Щ',
+  'P': 'З',
+  'Q': 'Й',
+  'R': 'К',
+  'S': 'Ы',
+  'T': 'Е',
+  'U': 'Г',
+  'V': 'М',
+  'W': 'Ц',
+  'X': 'Ч',
+  'Y': 'Н',
+  'Z': 'Я',
+
+}
   const georgianDict = {
     'a': 'ა',
     'b': 'ბ',
@@ -56,6 +85,35 @@ const russianDict= {
     'x': 'ხ',
     'y': 'ყ',
     'z': 'ზ'
+  }
+  const georgianDictShifted= {
+    'A': null,
+    'B': null,
+    'C': 'ჩ',
+    'D': null,
+    'E': null,
+    'F': null,
+    'G': null,
+    'H': null,
+    'I': null,
+    'J': 'ჟ',
+    'K': null,
+    'L': null,
+    'M': null,
+    'N': null,
+    'O': null,
+    'P': null,
+    'Q': null,
+    'R': 'ღ',
+    'S': 'შ',
+    'T': 'თ',
+    'U': null,
+    'V': null,
+    'W': 'ჭ',
+    'X': null,
+    'Y': null,
+    'Z': 'ძ',
+  
   }
   const thaiDict = {
     'a': 'ฟ',
@@ -85,14 +143,27 @@ const russianDict= {
     'y': 'ั',
     'z': 'ผ'
   }
+  const thaiDictShifted = {
+
+  }
 
 
 const Converter = {
 
-    convert: function(c, lang) {
+    convert: function(c, lang, uppercase) {
         if(lang === 'russian') {
+          if(!uppercase) {
             return russianDict[c];
+          } else {
+            return russianDictShifted[c];
+          }
+            
         } else if(lang === 'georgian') {
+          if(!uppercase) {
+            return georgianDict[c];
+          } else {
+            return georgianDictShifted[c];
+          }
             return georgianDict[c];
         } else if(lang === 'thai') {
             return thaiDict[c]

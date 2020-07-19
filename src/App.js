@@ -6,39 +6,58 @@ import Converter from "./Converter";
 function App() {
 
   const [ selectedLanguage, setSelectedLanguage ] = useState("english");
+  const [ characterCase, setCharacterCase ] = useState("lowercase");
 
   const typeFromButton = (character) => {
-    // working on it
+    // a job for future me
   }
 
-  // Match key to foreign keyboard equivalent
-  // const switchKey = (lang, c) => {
-
-  //   if(lang === 'georgian') {
-  //       return georgianDict[c];
-  //   } else if(lang === 'russian') {
-  //       return russianDict[c];
-  //   } else if(lang === 'thai') {
-  //       return thaiDict[c];
-  //   }
-
-  // }
 
   
-  const handleKeyPress = (e) => {
+  const handleKeyDown = (e) => {
 
-    const {selectionStart, selectionEnd, value} = e.target;
+    // Check if Shift was pressed to render uppercase keyboard
 
-    const newText = value.slice(0, selectionStart) + Converter.convert(e.key, selectedLanguage) + value.slice(selectionEnd);
-    e.target.value = newText;
+    if(e.which === 16) {
 
-    e.target.selectionStart = e.target.selectionEnd = selectionStart + 1;
-  
-    e.preventDefault();
+      setCharacterCase("uppercase");
 
+    }
+
+    // Get corresponding key && block 'Shift', 'Enter', etc. (metakeys) from inserting when selectedLanguage set to 'english'
+    if(selectedLanguage !== 'english') {
+
+      // Determine if key was pressed in conjunction with 'Shift'
+      if(e.shiftKey) {
+        var newKey = Converter.convert(e.key, selectedLanguage, true)
+      } else {
+        newKey = Converter.convert(e.key, selectedLanguage, false)
+      }
+
+    }
+    
+
+    // Insert newKey into textarea after it has been converted
+    if(newKey) {
+
+      const {selectionStart, selectionEnd, value} = e.target;
+      const newText = value.slice(0, selectionStart) + newKey + value.slice(selectionEnd);
+      e.target.value = newText;
+      e.target.selectionStart = e.target.selectionEnd = selectionStart + 1;
+      e.preventDefault();
+
+    }
   }
 
-  // Set Keyboard
+  const handleKeyUp = (e) => {
+    //Keep Keyboard Uppercase if button other than Shift is lifted
+    if(e.which === 16) {
+      setCharacterCase("lower");
+    }
+    
+  }
+
+  // Set Keyboard Language
   const handleClick = (e) => {
     const name = e.target.name;
     setSelectedLanguage(name);
@@ -53,22 +72,28 @@ function App() {
       <div>
         <textarea  
           className="inputBox" 
-          rows="4" cols="40" 
-          onKeyPress={selectedLanguage === 'english' ? null : handleKeyPress} 
+          rows="4" cols="30" 
+          onKeyDown={handleKeyDown}
+          onKeyUp={characterCase === 'uppercase' ? handleKeyUp : null}
         />
       </div>
 
-      {/* Keyboard Selectors */}
+      {/* Keyboard Language Selectors */}
       <div className="btn-group" role="group">
           <button onClick={handleClick} type="button" name="english"  className="langSelector btn btn-secondary">English</button>
           <button onClick={handleClick} type="button" name="russian"  className="langSelector btn btn-secondary">Russian</button>
           <button onClick={handleClick} type="button" name="georgian" className="langSelector btn btn-secondary">Georgian</button>
-          <button onClick={handleClick} type="button" name="thai"     className="langSelector btn btn-secondary">Thai</button>   
+          {/* <button onClick={handleClick} type="button" name="thai"     className="langSelector btn btn-secondary">Thai</button>    */}
       </div>
 
       {/* Keyboard */}
       <div>
-        <Keyboard insertCharacter={typeFromButton} key={selectedLanguage} keyboardLanguage={selectedLanguage}/>
+        <Keyboard 
+          insertCharacter={typeFromButton} 
+          key={selectedLanguage} 
+          keyboardLanguage={selectedLanguage}
+          characterCase={characterCase === 'uppercase' ? 1 : 0}
+          />
       </div>
      
     </div>
