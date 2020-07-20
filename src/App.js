@@ -19,24 +19,35 @@ function App() {
   
   const handleKeyDown = (e) => {
 
+    
     // Check if Shift was pressed to render uppercase keyboard
     if(e.which === 16) {
       setCharacterCase("uppercase");
     }
 
+    if(e.which === 20) {
+      alert("CapsLock not supported at this time");
+    }
+
     // If it's not a character don't do anything else;
-    if(e.key.length > 1) {
+    if(e.key.length > 1 || e.which === 32) {
       return true
     }
 
     // Get corresponding key && block 'Shift', 'Enter', etc. (metakeys) from inserting when selectedLanguage set to 'english'
     if(selectedLanguage !== 'english') {
 
-      // Determine if key was pressed in conjunction with 'Shift'
+
+      // alert("hello");
       
+      // Allow CMD + Key as normal
+      if(e.metaKey) {
+        return true;
+      }
+      // Determine if key was pressed in conjunction with 'Shift'
       if(e.shiftKey) {
         var newKey = Converter.convert(e.key, selectedLanguage, true)
-      } else {
+      } else { 
         newKey = Converter.convert(e.key, selectedLanguage, false)
       }
 
