@@ -27,7 +27,16 @@ const russianDict= {
     'w': 'ц',
     'x': 'ч',
     'y': 'н',
-    'z': 'я'
+    'z': 'я',
+    '[': 'х',
+    ']': 'ъ',
+    '\\': 'ё',
+    ';': 'ж',
+    '\'': 'э',
+    ',': 'б',
+    '.': 'ю',
+    '/': '/'
+
 }
 const russianDictShifted= {
   'A': 'Ф',
@@ -56,9 +65,17 @@ const russianDictShifted= {
   'X': 'Ч',
   'Y': 'Н',
   'Z': 'Я',
+  '{': 'Х',
+  '}': 'Ъ',
+  '|': 'Ё',
+  ':': 'Ж',
+  '"': 'Э',
+  '<': 'Б',
+  '>': 'Ю',
+  '?': '?'
 
 }
-  const georgianDict = {
+const georgianDict = {
     'a': 'ა',
     'b': 'ბ',
     'c': 'ც',
@@ -84,9 +101,17 @@ const russianDictShifted= {
     'w': 'ხ',
     'x': 'ხ',
     'y': 'ყ',
-    'z': 'ზ'
-  }
-  const georgianDictShifted= {
+    'z': 'ზ',
+    '[': '[',
+    ']': ']',
+    '\\': '\\',
+    ';': ';',
+    '\'': '\'',
+    ',': ',',
+    '.': '.',
+    '/': '/'
+}
+const georgianDictShifted= {
     'A': null,
     'B': null,
     'C': 'ჩ',
@@ -113,60 +138,34 @@ const russianDictShifted= {
     'X': null,
     'Y': null,
     'Z': 'ძ',
+    '{': '{',
+    '}': '}',
+    '|': '|',
+    ':': ':',
+    '"': '"',
+    '<': '<',
+    '>': '>',
+    '?': '?'
   
-  }
-  const thaiDict = {
-    'a': 'ฟ',
-    'b': 'ิ',
-    'c': 'แ',
-    'd': 'ก',
-    'e': 'ำ',
-    'f': 'ด',
-    'g': 'เ',
-    'h': '้',
-    'i': 'ร',
-    'j': '่',
-    'k': 'า',
-    'l': 'ส',
-    'm': 'ท',
-    'n': 'ื',
-    'o': 'น',
-    'p': 'ย',
-    'q': 'ๆ',
-    'r': 'พ', 
-    's': 'ห',
-    't': 'ะ',
-    'u': 'ี',
-    'v': 'อ',
-    'w': 'ไ',
-    'x': 'ป',
-    'y': 'ั',
-    'z': 'ผ'
-  }
-  const thaiDictShifted = {
-
-  }
+}
 
 
 const Converter = {
 
-    convert: function(c, lang, uppercase) {
+    convert: function(c, lang, isUppercase) {
         if(lang === 'russian') {
-          if(!uppercase) {
+          if(!isUppercase) {
             return russianDict[c];
           } else {
             return russianDictShifted[c];
-          }
-            
+          }    
         } else if(lang === 'georgian') {
-          if(!uppercase) {
+          if(!isUppercase) {
             return georgianDict[c];
           } else {
             return georgianDictShifted[c];
           }
             return georgianDict[c];
-        } else if(lang === 'thai') {
-            return thaiDict[c]
         } else return c;
     }
 

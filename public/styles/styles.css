@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    background-color: aliceblue;
+    background-color: lavender;
 }
 
 .inputBox {
@@ -10,10 +10,10 @@ body {
     color: slateblue;
     font-family: 'Roboto', sans-serif;
     padding: 8px 17px;
-    font-size: 3rem;
+    font-size: 2.5rem;
 }
 
-.langSelector:focus {
+.langSelector:active {
     background-color: slateblue;
     outline: none;
 }

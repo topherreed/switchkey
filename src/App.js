@@ -5,8 +5,11 @@ import Converter from "./Converter";
 
 function App() {
 
+  
   const [ selectedLanguage, setSelectedLanguage ] = useState("english");
   const [ characterCase, setCharacterCase ] = useState("lowercase");
+
+  
 
   const typeFromButton = (character) => {
     // a job for future me
@@ -17,11 +20,13 @@ function App() {
   const handleKeyDown = (e) => {
 
     // Check if Shift was pressed to render uppercase keyboard
-
     if(e.which === 16) {
-
       setCharacterCase("uppercase");
+    }
 
+    // If it's not a character don't do anything else;
+    if(e.key.length > 1) {
+      return true
     }
 
     // Get corresponding key && block 'Shift', 'Enter', etc. (metakeys) from inserting when selectedLanguage set to 'english'
@@ -41,16 +46,15 @@ function App() {
       // Insert newKey into textarea after it has been converted, prevent nonexistent keys from being typed
       if(newKey) {
 
-      const {selectionStart, selectionEnd, value} = e.target;
-      const newText = value.slice(0, selectionStart) + (newKey || "") + value.slice(selectionEnd);
-      e.target.value = newText;
-      e.target.selectionStart = e.target.selectionEnd = selectionStart + 1;
-      e.preventDefault();
+        const {selectionStart, selectionEnd, value} = e.target;
+        const newText = value.slice(0, selectionStart) + (newKey || "") + value.slice(selectionEnd);
+        e.target.value = newText;
+        e.target.selectionStart = e.target.selectionEnd = selectionStart + 1;
+        e.preventDefault();
 
-    } else {
-      console.log("Here I am once again, TORN INTO PIECES")
-      e.preventDefault();
-    }
+      } else {
+        e.preventDefault();
+      }
 
     }
     
@@ -70,12 +74,21 @@ function App() {
   const handleClick = (e) => {
     const name = e.target.name;
     setSelectedLanguage(name);
+    
+  }
+
+  const activeStyle = {
+    backgroundColor: "slateblue"
+  }
+  const inactiveStyle = {
 
   }
 
 
   return (
     <div className="App">
+
+      
 
       {/* Input Box */}
       <div>
@@ -89,10 +102,10 @@ function App() {
 
       {/* Keyboard Language Selectors */}
       <div className="btn-group" role="group">
-          <button onClick={handleClick} type="button" name="english"  className="langSelector btn btn-secondary">English</button>
-          <button onClick={handleClick} type="button" name="russian"  className="langSelector btn btn-secondary">Russian</button>
-          <button onClick={handleClick} type="button" name="georgian" className="langSelector btn btn-secondary">Georgian</button>
-          {/* <button onClick={handleClick} type="button" name="thai"     className="langSelector btn btn-secondary">Thai</button>    */}
+          <button style={selectedLanguage === 'english' ? activeStyle : inactiveStyle} onClick={handleClick} type="button" name="english"  className="langSelector btn btn-secondary">English</button>
+          <button style={selectedLanguage === 'russian' ? activeStyle : inactiveStyle} onClick={handleClick} type="button" name="russian"  className="langSelector btn btn-secondary">Russian</button>
+          <button style={selectedLanguage === 'georgian' ? activeStyle : inactiveStyle } onClick={handleClick} type="button" name="georgian" className="langSelector btn btn-secondary">Georgian</button>
+          
       </div>
 
       {/* Keyboard */}
